@@ -47,7 +47,7 @@ Requirements, use cases and design decisions are written and versioned in the re
 
 The developer defines every requirement. Do not invent requirements, use cases or decisions, and do not fill gaps with assumptions: an open question stays open until the developer answers it in the docs.
 
-Your work on these documents happens only on request. Depending on what the developer asks, it may be fixing spelling and grammar, writing down what they dictate, reviewing, analysing or critiquing. Do not move from one kind of task to another on your own: fixing spelling does not license rewording content, and writing down a dictation does not license adding to it.
+The developer writes all of these documents. By default Claude's role is proofreading: fixing spelling and grammar without changing the content. Anything beyond that happens only on request: writing down a dictation, reviewing, analysing or critiquing. Do not move from one kind of task to another on your own: fixing spelling does not license rewording content, and writing down a dictation does not license adding to it.
 
 ## Running Go
 
@@ -67,9 +67,14 @@ The Go module cache persists in `development/.gomodcache/` (git-ignored), so dep
 - Documentation and comments: you may be asked to review existing docs or generate documentation and inline code comments.
 - Code generation: occasionally the developer will ask you to generate specific code. Do so only when directly requested.
 
-## Attribution of AI-written tests
+## Attribution of AI-Generated Content
 
-Every test that Claude writes (or substantially rewrites) must carry a comment stating it was written by an AI agent, so it is always distinguishable from the tests the developer wrote by hand to learn. Add a line like `// This test was written by an AI agent (Claude).` to the test's doc comment. If Claude only extends a hand-written test, the comment must say which part was AI-written instead of claiming the whole test.
+Everything an AI produces in this project must be identifiable as such, so it is never mistaken for work the developer did by hand. Claude marks what it produces:
+
+- Tests: every test that Claude writes (or substantially rewrites) carries a line like `// This test was written by an AI agent (Claude).` in its doc comment. If Claude only extends a hand-written test, the comment says which part was AI-written instead of claiming the whole test.
+- Code: every function, method or type that Claude writes (only ever when explicitly asked) carries a line like `// This function was written by an AI agent (Claude).` in its doc comment. If Claude modifies only part of hand-written code, the comment says which part. Code the developer wrote with Claude acting as a mentor says exactly that, e.g. "written by the developer, mentored by an AI agent (Claude)".
+- Documentation: each document, or each directory of documents, carries a note stating what an AI did to it. Use a line at the end of the document, or one note in the directory's index covering all its files. The note names the kind of work, e.g. "Proofread by an AI agent (Claude)." or "Written down by an AI agent (Claude) from the developer's dictation." Claude adds the note, or updates it when the kind of work changes, whenever it touches a document. Cosmetic fixes made by the editor's auto-format do not count.
+- Media: images, diagrams and other generated media are credited as AI-generated where they are shown, naming the tool, whichever AI produced them. The README's Credits section does this for the header image (generated with ChatGPT).
 
 ## Logs and Telemetry Conventions
 
