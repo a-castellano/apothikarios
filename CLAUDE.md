@@ -35,6 +35,20 @@ When asked to review or update the context, look for files inside `internal-cont
 
 Because `internal-context/` is git-ignored, documentation must never reference any document inside the `internal-context/` directory. Versioned docs would end up with broken links for anyone who does not have the internal-context locally. Keep internal-context references confined to the `internal-context/` directory itself.
 
+Its layout is described in `internal-context/README.md`:
+
+- `vision.md` holds the general idea of the project. It is context, never a requirement.
+- `roadmap.md` is a dated log of the work done. Keep it up to date on your own initiative, per commit or per session, without being asked.
+- `milestones/` holds one file per milestone, created only when the developer defines one.
+
+## Requirements and Design Workflow
+
+Requirements, use cases and design decisions are written and versioned in the repository. They are the source of truth, and no code is written until they exist.
+
+The developer defines every requirement. Do not invent requirements, use cases or decisions, and do not fill gaps with assumptions: an open question stays open until the developer answers it in the docs.
+
+Your work on these documents happens only on request. Depending on what the developer asks, it may be fixing spelling and grammar, writing down what they dictate, reviewing, analysing or critiquing. Do not move from one kind of task to another on your own: fixing spelling does not license rewording content, and writing down a dictation does not license adding to it.
+
 ## Running Go
 
 Never run Go against the host toolchain. Every Go task (tests, `go vet`, builds, coverage, `go list`, etc.) must run inside the project's development container, defined in `development/docker-compose.yml`. The same image — `harbor.windmaker.net/limani/base_golang_1_27` — is used in local development, CI and production, so the environment stays identical everywhere.
